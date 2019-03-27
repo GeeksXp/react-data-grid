@@ -70,6 +70,17 @@ export const isSelectedCellEditable = ({ enableCellSelect, selectedPosition, col
   return canEdit(column, row, enableCellSelect) && isCellEditable;
 };
 
+export const isSelectedRangeArea = ({ idx, rowIdx, getSelectedRange }) => {
+  const { startCell, cursorCell } = getSelectedRange();
+  const arrIdx = [cursorCell.idx, startCell.idx];
+  const arrRowIdx = [cursorCell.rowIdx, startCell.rowIdx];
+
+   return idx >= Math.min(...arrIdx)
+       && idx <= Math.max(...arrIdx)
+       && rowIdx >= Math.min(...arrRowIdx)
+       && rowIdx <= Math.max(...arrRowIdx);
+}
+
 export const getNextSelectedCellPosition = ({ cellNavigationMode, columns, rowsCount }, nextPosition) => {
   if (cellNavigationMode !== CellNavigationMode.NONE) {
     const { idx, rowIdx } = nextPosition;

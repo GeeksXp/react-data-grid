@@ -265,6 +265,11 @@ class Canvas extends React.PureComponent {
     return row && row.props ? row.props.columns : this.props.columns;
   };
 
+  getSelectedRange = () => {
+    const selectedRange = this.interactionMasks.getSelectedRange();
+    return selectedRange
+  }
+
   setCanvasRef = el => {
     this.canvas = el;
   };
@@ -364,7 +369,8 @@ class Canvas extends React.PureComponent {
           colOverscanEndIdx,
           lastFrozenColumnIndex,
           isScrolling: this.props.isScrolling,
-          scrollLeft: this._scroll.scrollLeft
+          scrollLeft: this._scroll.scrollLeft,
+          getSelectedRange: this.getSelectedRange
         });
       });
 

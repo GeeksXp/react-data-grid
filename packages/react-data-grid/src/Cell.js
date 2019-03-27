@@ -8,6 +8,7 @@ import CellAction from './CellAction';
 import CellExpand from './CellExpander';
 import ChildRowDeleteButton from './ChildRowDeleteButton';
 import { isFrozen } from './ColumnUtils';
+import { isSelectedRangeArea } from './utils/SelectedCellUtils';
 require('../../../themes/react-data-grid-cell.css');
 
 // The list of the propTypes that we want to include in the Cell div
@@ -78,9 +79,9 @@ class Cell extends React.PureComponent {
     }
   };
 
-  onCellMouseDown = () => {
+  onCellMouseDown = (e) => {
     const { idx, rowIdx, cellMetaData } = this.props;
-    if (isFunction(cellMetaData.onCellMouseDown)) {
+    if (isFunction(cellMetaData.onCellMouseDown) && e.button !== 2) {
       cellMetaData.onCellMouseDown({ idx, rowIdx });
     }
   };
@@ -93,7 +94,10 @@ class Cell extends React.PureComponent {
   };
 
   onCellContextMenu = () => {
-    const { idx, rowIdx, cellMetaData } = this.props;
+    const { idx, rowIdx, cellMetaData, getSelectedRange } = this.props;
+
+    if (isSelectedRangeArea({ idx, rowIdx, getSelectedRange })) return;
+    
     if (isFunction(cellMetaData.onCellContextMenu)) {
       cellMetaData.onCellContextMenu({ idx, rowIdx });
     }
