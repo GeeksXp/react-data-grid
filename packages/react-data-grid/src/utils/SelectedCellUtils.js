@@ -79,7 +79,14 @@ export const isSelectedRangeArea = ({ idx, rowIdx, getSelectedRange }) => {
        && idx <= Math.max(...arrIdx)
        && rowIdx >= Math.min(...arrRowIdx)
        && rowIdx <= Math.max(...arrRowIdx);
-}
+};
+
+export const isDataGridCell = (e) => {
+  if (!e.offsetParent || e.offsetParent.className === 'react-grid-Main') return false;
+  if (e.offsetParent.className === 'react-grid-Cell') return true;
+  
+  return isDataGridCell(e.offsetParent);
+};
 
 export const getNextSelectedCellPosition = ({ cellNavigationMode, columns, rowsCount }, nextPosition) => {
   if (cellNavigationMode !== CellNavigationMode.NONE) {
