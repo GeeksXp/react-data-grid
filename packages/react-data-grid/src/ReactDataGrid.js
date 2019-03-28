@@ -4,6 +4,7 @@ import { deprecate } from 'react-is-deprecated';
 import BaseGrid from './Grid';
 import CheckboxEditor from 'common/editors/CheckboxEditor';
 import RowUtils from './RowUtils';
+import { isDataGridCell } from './utils/SelectedCellUtils';
 import { getColumn, getSize } from './ColumnUtils';
 import KeyCodes from './KeyCodes';
 import { isFunction } from 'common/utils';
@@ -422,7 +423,8 @@ class ReactDataGrid extends React.Component {
     this.selectUpdate(cellPosition);
   };
 
-  onWindowMouseUp = () => {
+  onWindowMouseUp = (e) => {
+    if (!isDataGridCell(e.target)) return;
     this.selectEnd();
   };
 
