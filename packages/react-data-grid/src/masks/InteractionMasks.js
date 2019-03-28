@@ -191,6 +191,11 @@ class InteractionMasks extends React.Component {
     this.setMaskScollLeft(copyMask, copiedPosition, scrollLeft);
   };
 
+  getSelectedRange = () => {
+    const { selectedRange } = this.state;
+    return selectedRange;
+  }
+  
   onKeyDown = e => {
     if (isCtrlKeyHeldDown(e)) {
       this.onPressKeyWithCtrl(e);
