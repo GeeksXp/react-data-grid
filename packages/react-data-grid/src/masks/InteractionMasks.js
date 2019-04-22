@@ -508,6 +508,13 @@ class InteractionMasks extends React.Component {
   }
 
   onSelectCellRangeStarted = (selectedPosition) => {
+    const { isEditorEnabled } = this.state;
+
+    if (isEditorEnabled) {
+     this.closeEditor();
+     return;
+   }
+   
     this.setState({
       selectedRange: this.createSingleCellSelectedRange(selectedPosition, true),
       selectedPosition
