@@ -84,7 +84,7 @@ export const isSelectedRangeArea = ({ idx, rowIdx, getSelectedRange }) => {
 
 export const isDataGridCell = (e) => {
   if (!e.offsetParent || e.offsetParent.className === 'react-grid-Main') return false;
-  if (e.offsetParent.className === 'react-grid-Cell') return true;
+  if (e.offsetParent.className.indexOf('react-grid-Cell') !== -1) return true;
   return isDataGridCell(e.offsetParent);
 };
 
